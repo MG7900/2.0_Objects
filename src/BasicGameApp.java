@@ -69,8 +69,10 @@ public class BasicGameApp implements Runnable {
 		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
 		astro = new Astronaut(10,100);
         astro.dx = 10;
+        astro.dy = 10;
         astro2 = new Astronaut(100,10);
         astro2.dx = -10;
+        astro2.dy = -10;
 
 
 
