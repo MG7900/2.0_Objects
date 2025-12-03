@@ -68,6 +68,10 @@ public class BasicGameApp implements Runnable {
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
 		astro = new Astronaut(10,100);
+        astro.dx = 10;
+        astro2 = new Astronaut(100,10);
+        astro2.dx = -10;
+
 
 
 	}// BasicGameApp()
@@ -96,6 +100,7 @@ public class BasicGameApp implements Runnable {
 	{
       //calls the move( ) code in the objects
 		astro.move();
+        astro2.move();
 
 	}
 	
@@ -143,10 +148,13 @@ public class BasicGameApp implements Runnable {
 	//paints things on the screen using bufferStrategy
 	private void render() {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
+
+
 		g.clearRect(0, 0, WIDTH, HEIGHT);
 
       //draw the image of the astronaut
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
+        g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro.width, astro.height, null);
 
 		g.dispose();
 
