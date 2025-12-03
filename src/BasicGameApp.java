@@ -68,11 +68,11 @@ public class BasicGameApp implements Runnable {
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
 		astro = new Astronaut(10,100);
-        astro.dx = 10;
-        astro.dy = 10;
+        astro.dx = 50;
+        astro.dy = 50;
         astro2 = new Astronaut(100,10);
-        astro2.dx = -10;
-        astro2.dy = -10;
+        astro2.dx = -50;
+        astro2.dy = -50;
 
 
 
