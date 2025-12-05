@@ -63,16 +63,38 @@ public class BasicGameApp implements Runnable {
 	public BasicGameApp() {
       
       setUpGraphics();
-       
+
+         //randomness
+         //range 0-9
+        //ALWAYS PUT PARENTHESIS NEXT TO INT: (int)(Math.random(0 * range) + offset;
+
+      int randx = (int)(Math.random()*10);
+      //generates a number between 0.00001 to 0.999999(lots of 0 and lots of 9)
+        //0.001 - 9.99
+        //range to 1-10
+        randx = (int)(Math.random()*1000)+1;
+        //0.001 = 00.999
+        //0.01-9.99
+        //0-9
+        //1-10
+
+        //range to be 1-1000
+        //randx = (int)(Math.random()*1000)+1;
+
+        //todo: make a variable called randy and make the random range 1-700
+
+        int randy = (int)(Math.random()*10);
+        randy = (int)(Math.random()*700)+1;
+
       //variable and objects
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
 		astro = new Astronaut(10,100);
-        astro.dx = 50;
+        astro.dx = 10;
         astro.dy = 50;
-        astro2 = new Astronaut(100,10);
-        astro2.dx = -50;
-        astro2.dy = -50;
+        astro2 = new Astronaut(randx,randy);
+        astro2.dx = -10;
+        astro2.dy = -10;
 
 
 

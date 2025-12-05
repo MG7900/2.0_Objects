@@ -31,7 +31,7 @@ public class Astronaut {
         dx =10;
         dy =20;
         width = 60;
-        height = 60;
+        height = 100;
         isAlive = true;
  
     } // constructor
