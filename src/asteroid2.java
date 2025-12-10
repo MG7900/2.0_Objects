@@ -19,8 +19,8 @@ public class asteroid2 {
     public asteroid2(int pXpos, int pYpos) {
         xpos = pXpos;
         ypos = pYpos;
-        dx = (int) (Math.random() * 15)+1;;
-        dy = (int) (Math.random() * -10)+1;
+        dx = (int) (Math.random() * 1)+1;;
+        dy = (int) (Math.random() * 10)+1;
         width = 100;
         height = 60;
 
