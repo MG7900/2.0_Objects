@@ -1,4 +1,4 @@
-public class asteroid {
+public class asteroid2 {
     public String name;                //holds the name of the hero
     public int xpos;                //the x position
     public int ypos;                //the y position
@@ -16,13 +16,13 @@ public class asteroid {
 
     //This is a SECOND constructor that takes 3 parameters.  This allows us to specify the hero's name and position when we build it.
     // if you put in a String, an int and an int the program will use this constructor instead of the one above.
-    public asteroid(int pXpos, int pYpos) {
+    public asteroid2(int pXpos, int pYpos) {
         xpos = pXpos;
         ypos = pYpos;
-        dx =-5;
-        dy =-5;
-        width = 160;
-        height = 160;
+        dx = (int) (Math.random() * 15)+1;;
+        dy = (int) (Math.random() * -10)+1;
+        width = 100;
+        height = 60;
 
     } // constructor
 
@@ -43,20 +43,8 @@ public class asteroid {
             xpos = 850;
         }
         //todo: make the asteroid wrap when it hits the right and left walls
-        //below: not how we move
-//        if(xpos < 0 || xpos > 1250){
-//            dx=-dx;
-//
-//        }
-//
-//        if(ypos < 0 || ypos > 850){
-//
-//            dy=-dy;
-//        }
         xpos = xpos + dx;
         ypos = ypos + dy;
-
     }
 }
 
-//todo: for homework, add another asteroid
