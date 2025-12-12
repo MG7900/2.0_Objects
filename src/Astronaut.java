@@ -1,3 +1,5 @@
+import org.w3c.dom.css.Rect;
+
 import java.awt.*;
 
 /**
@@ -15,7 +17,7 @@ public class Astronaut {
     public int width;
     public int height;
     public boolean isAlive;            //a boolean to denote if the hero is alive or dead.
-
+    public Rectangle hitbox;
 
     // METHOD DEFINITION SECTION
 
@@ -33,6 +35,8 @@ public class Astronaut {
         width = 60;
         height = 100;
         isAlive = true;
+        hitbox = new Rectangle(xpos, ypos, width, height);
+        //anytime we update the hitbox
  
     } // constructor
 
@@ -50,7 +54,8 @@ public class Astronaut {
         }
         xpos = xpos + dx;
         ypos = ypos + dy;
- 
+        hitbox = new Rectangle(xpos, ypos, width, height);
+        //hitbox update last to ensure most accurate changes
     }
 }
 
