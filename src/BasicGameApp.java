@@ -104,8 +104,8 @@ public class BasicGameApp implements Runnable {
         astro2.dy = -10;
 
         asteroid1 = new asteroid(randx, randy);
-        astro2.dx = -10;
-        astro2.dy = -10;
+        astro2.dx = -5;
+        astro2.dy = -5;
 
         asteroid2 = new asteroid2(496, 498);
 
@@ -141,18 +141,28 @@ public class BasicGameApp implements Runnable {
         asteroid1.move();
         asteroid2.move();
         crashing();
+        crashing_asteroids();
 	}
 
     public void crashing(){
 
         //if the astros crashes into each other
         if(astro.hitbox.intersects(astro2.hitbox)){
-            System.out.println("Crash!");
+            System.out.println("Crashing!");
             astro.dx = - astro.dx;
             astro2.dx = - astro2.dx;
             astro.dy = - astro.dy;
             astro2.dy = - astro2.dy;
             astro2.isAlive = false;
+        }
+    }
+    public void crashing_asteroids(){
+        if(asteroid1.hitbox.intersects(asteroid2.hitbox)){
+            System.out.println("Crashing asteroids!");
+            asteroid1.dx = - asteroid1.dx;
+            asteroid1.dy = - asteroid1.dy;
+            asteroid2.dx = - asteroid2.dx;
+            asteroid2.dy = - asteroid2.dy;
         }
     }
 	
@@ -217,6 +227,8 @@ public class BasicGameApp implements Runnable {
 
 		g.drawRect(astro.hitbox.x, astro.hitbox.y, astro.hitbox.width, astro.hitbox.height);
 
+        g.drawRect(asteroid1.hitbox.x, asteroid1.hitbox.y, 45, 67);
+        g.drawRect(asteroid2.hitbox.x, asteroid2.hitbox.y, 36, 88);
         g.dispose();
 
 		bufferStrategy.show();

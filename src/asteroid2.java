@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class asteroid2 {
     public String name;                //holds the name of the hero
     public int xpos;                //the x position
@@ -6,7 +8,7 @@ public class asteroid2 {
     public int dy;                    //the speed of the hero in the y direction
     public int width;
     public int height;
-
+    public Rectangle hitbox;
 
     // METHOD DEFINITION SECTION
 
@@ -21,9 +23,9 @@ public class asteroid2 {
         ypos = pYpos;
         dx = (int) (Math.random() * 1)+1;;
         dy = (int) (Math.random() * 10)+1;
-        width = 100;
-        height = 60;
-
+        width = 50;
+        height = 50;
+        hitbox = new Rectangle(xpos, ypos, 26, 78);
     } // constructor
 
     //The move method.  Everytime this is run (or "called") the hero's x position and y position change by dx and dy
@@ -45,6 +47,7 @@ public class asteroid2 {
         //todo: make the asteroid wrap when it hits the right and left walls
         xpos = xpos + dx;
         ypos = ypos + dy;
+        hitbox = new Rectangle(xpos, ypos, width, height);
     }
 }
 

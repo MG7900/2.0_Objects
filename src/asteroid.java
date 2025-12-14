@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class asteroid {
     public String name;                //holds the name of the hero
     public int xpos;                //the x position
@@ -6,7 +8,7 @@ public class asteroid {
     public int dy;                    //the speed of the hero in the y direction
     public int width;
     public int height;
-
+    public Rectangle hitbox;
 
     // METHOD DEFINITION SECTION
 
@@ -19,11 +21,11 @@ public class asteroid {
     public asteroid(int pXpos, int pYpos) {
         xpos = pXpos;
         ypos = pYpos;
-        dx =-5;
-        dy =-5;
+        dx =-20;
+        dy =-20;
         width = 160;
         height = 160;
-
+        hitbox = new Rectangle(xpos, ypos, 55, 77);
     } // constructor
 
     //The move method.  Everytime this is run (or "called") the hero's x position and y position change by dx and dy
@@ -55,7 +57,7 @@ public class asteroid {
 //        }
         xpos = xpos + dx;
         ypos = ypos + dy;
-
+        hitbox = new Rectangle(xpos, ypos, width, height);
     }
 }
 
