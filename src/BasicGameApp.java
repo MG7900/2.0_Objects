@@ -41,6 +41,7 @@ public class BasicGameApp implements Runnable {
 	public Image astroPic;
     public Image asteroidPic;
     public Image asteroid2Pic;
+    public Image BackgroundPic;
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
@@ -95,6 +96,8 @@ public class BasicGameApp implements Runnable {
 		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
         asteroidPic = Toolkit.getDefaultToolkit().getImage("asteroid1.jpg");
         asteroid2Pic = Toolkit.getDefaultToolkit().getImage("asteroid2.jpeg");
+        BackgroundPic = Toolkit.getDefaultToolkit().getImage("download.jpg");
+
 		astro = new Astronaut(10,100);
         astro.dx = 10;
         astro.dy = 50;
@@ -157,12 +160,20 @@ public class BasicGameApp implements Runnable {
         }
     }
     public void crashing_asteroids(){
-        if(asteroid1.hitbox.intersects(asteroid2.hitbox)){
+        if(asteroid1.hitbox.intersects(asteroid2.hitbox) && asteroid2.isCrashing == false){
             System.out.println("Crashing asteroids!");
+
             asteroid1.dx = - asteroid1.dx;
+
             asteroid1.dy = - asteroid1.dy;
             asteroid2.dx = - asteroid2.dx;
             asteroid2.dy = - asteroid2.dy;
+
+            asteroid2.isCrashing = true;
+            asteroid2.height = asteroid2.height+ 50;
+        }
+        if(asteroid1.hitbox.intersects(asteroid2.hitbox)){
+            asteroid2.isCrashing = false;
         }
     }
 	
@@ -213,6 +224,8 @@ public class BasicGameApp implements Runnable {
 
 
 		g.clearRect(0, 0, WIDTH, HEIGHT);
+
+        g.drawImage(BackgroundPic,0,0,WIDTH,HEIGHT,null);
 
       //draw the image of the astronaut
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);

@@ -9,6 +9,7 @@ public class asteroid2 {
     public int width;
     public int height;
     public Rectangle hitbox;
+    public boolean isCrashing;
 
     // METHOD DEFINITION SECTION
 
@@ -26,6 +27,7 @@ public class asteroid2 {
         width = 50;
         height = 50;
         hitbox = new Rectangle(xpos, ypos, 26, 78);
+        isCrashing = false;
     } // constructor
 
     //The move method.  Everytime this is run (or "called") the hero's x position and y position change by dx and dy
