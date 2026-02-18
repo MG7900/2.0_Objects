@@ -19,6 +19,14 @@ public class Astronaut {
     public boolean isAlive;            //a boolean to denote if the hero is alive or dead.
     public Rectangle hitbox;
 
+    public boolean isNorth;
+    public boolean isSouth;
+    public boolean isWest;
+    public boolean isEast;
+    public int previous_dx;
+    public int previous_dy;
+
+
     // METHOD DEFINITION SECTION
 
     // Constructor Definition
@@ -28,6 +36,7 @@ public class Astronaut {
     //This is a SECOND constructor that takes 3 parameters.  This allows us to specify the hero's name and position when we build it.
     // if you put in a String, an int and an int the program will use this constructor instead of the one above.
     public Astronaut(int pXpos, int pYpos) {
+        isNorth = false;
         xpos = pXpos;
         ypos = pYpos;
         dx =10;
@@ -42,6 +51,36 @@ public class Astronaut {
 
     //The move method.  Everytime this is run (or "called") the hero's x position and y position change by dx and dy
     public void move() {
+
+        previous_dx = dx;
+        previous_dy = dy;
+
+        if(isNorth == true){
+            dy = -2;
+        }else{
+            dy = previous_dy;
+        }
+
+        if(isSouth == true){
+            dy = 2;
+        }else{
+            dy = previous_dy;
+        }
+
+        if(isEast == true){
+            dx = 2;
+        }else{
+
+            dx = previous_dx;
+        }
+
+        if(isWest == true){
+            dx = -2;
+
+        }else{
+
+            dx = previous_dy;
+        }
 
         if(xpos < 0 || xpos > 950){
             dx=-dx;

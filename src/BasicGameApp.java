@@ -13,6 +13,8 @@
 
 //Graphics Libraries
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.*;
 import javax.swing.JFrame;
@@ -22,7 +24,12 @@ import javax.swing.JPanel;
 //*******************************************************************************
 // Class Definition Section
 
-public class BasicGameApp implements Runnable {
+/*2.18.2026
+step 1: implement Key listner
+
+
+ */
+public class BasicGameApp implements Runnable, KeyListener {
 
    //Variable Definition Section
    //Declare the variables used in the program 
@@ -45,7 +52,7 @@ public class BasicGameApp implements Runnable {
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
-	private Astronaut astro;
+	public Astronaut astro;
     //todo: make a new object called astro2
 
 //    private Astronaut astro2;
@@ -99,19 +106,20 @@ public class BasicGameApp implements Runnable {
         BackgroundPic = Toolkit.getDefaultToolkit().getImage("download.jpg");
 
 		astro = new Astronaut(10,100);
-        astro.dx = 10;
-        astro.dy = 50;
+        astro.dy = (int)(Math.random()*5)-3;
+        astro.dx = (int)(Math.random()*5)-3;
 
         astro2 = new Astronaut(randx,randy);
-        astro2.dx = -10;
-        astro2.dy = -10;
+        astro2.dx = (int)(Math.random()*5)-3;
+        astro2.dy = (int)(Math.random()*5)-3;
 
-        asteroid1 = new asteroid(randx, randy);
-        astro2.dx = -5;
-        astro2.dy = -5;
+        asteroid1 = new asteroid(100, 0);
+        asteroid1.dx = (int)(Math.random()*5)-3;
+        asteroid1.dy = (int)(Math.random()*5)-3;
 
         asteroid2 = new asteroid2(496, 498);
-
+        asteroid2.dx = (int)(Math.random()*5)-3;
+        asteroid2.dy = (int)(Math.random()*5)-3;
 
 
 	}// BasicGameApp()
@@ -188,6 +196,8 @@ public class BasicGameApp implements Runnable {
    }
 
    //Graphics setup method
+
+
    private void setUpGraphics() {
       frame = new JFrame("Application Template");   //Create the program window or frame.  Names it.
    
@@ -197,7 +207,16 @@ public class BasicGameApp implements Runnable {
    
       // creates a canvas which is a blank rectangular area of the screen onto which the application can draw
       // and trap input events (Mouse and Keyboard events)
-      canvas = new Canvas();  
+      canvas = new Canvas();
+
+       /* 2.18.2026
+       step 2: add Keylistner to canvas
+
+        */
+       canvas.addKeyListener(this);
+       //we're controlling w/ our keys
+       //the canvas is our?
+
       canvas.setBounds(0, 0, WIDTH, HEIGHT);
       canvas.setIgnoreRepaint(true);
    
@@ -246,4 +265,92 @@ public class BasicGameApp implements Runnable {
 
 		bufferStrategy.show();
 	}
+
+    /* 2.18.2026
+    Step 3: add methods
+     */
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println(e.getKeyChar());
+        //gets the letters that were pressed, not e.g. backspace or space
+
+        //a code for each key is different, unique so
+
+        System.out.println(e.getKeyCode());
+        if(e.getKeyCode() == 38){ //when up arrow is pressed
+
+            //astro.dy = astro.dy - 1;
+
+            //the below code makes it always go up every time pressed up button
+             astro.isNorth = true;
+        }
+
+        if(e.getKeyCode() == 40){ //when up arrow is pressed
+
+            //astro.dy = astro.dy - 1;
+
+            //the below code makes it always go up every time pressed up button
+            astro.isSouth = true;
+        }
+
+        if(e.getKeyCode() == 39){ //when up arrow is pressed
+
+            //astro.dy = astro.dy - 1;
+
+            //the below code makes it always go up every time pressed up button
+            astro.isEast = true;
+        }
+
+        if(e.getKeyCode() == 37){ //when up arrow is pressed
+
+            //astro.dy = astro.dy - 1;
+
+            //the below code makes it always go up every time pressed up button
+            astro.isWest = true;
+        }
+
+
+
+//        if(e.getKeyCode() == 39){ //when up arrow is pressed
+//
+//            astro.dx = astro.dx - 1;
+//
+//            //the below code makes it always go up every time pressed up button
+//            // astro.dy = -Math.abs(astro.dy);
+//        }
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {   //key released is triggered everytime we stop touching a key
+        System.out.println("I stopped touching " + e.getKeyCode());
+        //to see which key code we jsut released
+
+        if(e.getKeyCode() == 38 ){  //38 is up arrow
+            astro.isNorth = false;
+            System.out.println("not going up");
+        }
+        if(e.getKeyCode() == 40 ){  //38 is up arrow
+            System.out.println("not going up");
+
+            astro.isSouth = false;
+        }
+        if(e.getKeyCode() == 39 ){  //38 is up arrow
+            System.out.println("not going up");
+
+            astro.isEast = false;
+        }
+        if(e.getKeyCode() == 37 ){  //38 is up arrow
+            System.out.println("not going up");
+
+            astro.isWest = false;
+        }
+
+    }
 }
