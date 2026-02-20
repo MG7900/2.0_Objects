@@ -65,7 +65,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public Rectangle startHitbox;
 
     public boolean startGame;
-
+    public boolean mouseheld;
     // Main method definition
    // This is the code that runs first and automatically
 	public static void main(String[] args) {
@@ -130,6 +130,8 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         startHitbox = new Rectangle(100,100,100,100);
 
         startGame = false;
+
+        mouseheld = false;
 	}// BasicGameApp()
 
 
@@ -161,6 +163,12 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             asteroid2.move();
             crashing();
             crashing_asteroids();
+
+            if(mouseheld == true) {
+                astro2.dy = astro2.dy + 2;
+//                astro2.dx = astro2.dx + 1;
+
+            }
         }
     }
 
@@ -173,8 +181,9 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             astro2.dx = - astro2.dx;
             astro.dy = - astro.dy;
             astro2.dy = - astro2.dy;
-            astro2.isAlive = false;
+//            astro2.isAlive = false;
         }
+
     }
     public void crashing_asteroids(){
         if(asteroid1.hitbox.intersects(asteroid2.hitbox) && asteroid2.isCrashing == false){
@@ -187,7 +196,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             asteroid2.dy = - asteroid2.dy;
 
             asteroid2.isCrashing = true;
-            asteroid2.height = asteroid2.height+ 50;
+
         }
         if(asteroid1.hitbox.intersects(asteroid2.hitbox)){
             asteroid2.isCrashing = false;
@@ -263,10 +272,10 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             //draw the image of the astronaut
             g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
 
-            if (astro2.isAlive == true) {
+//            if (astro2.isAlive == true) {
                 g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);
                 g.drawRect(astro2.hitbox.x, astro2.hitbox.y, astro2.hitbox.width, astro2.hitbox.height);
-            }
+//            }
 
 
             g.drawImage(asteroidPic, asteroid1.xpos, asteroid1.ypos, 45, 67, null);
@@ -382,6 +391,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        mouseheld = true;
         System.out.println(e.getPoint());
         Rectangle pointHitbox = new Rectangle(e.getX(),e.getY(),1,1);
         if(startHitbox.intersects(pointHitbox)){
@@ -389,11 +399,18 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             startGame = true;
 
         }
+
+        //now the mouse controls the position of the astronaut by clicking
+        astro.xpos = pointHitbox.x;
+        astro.ypos = pointHitbox.y;
+
+
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        mouseheld = false;
     }
 
     @Override
