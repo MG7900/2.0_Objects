@@ -15,6 +15,8 @@
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.*;
 import javax.swing.JFrame;
@@ -29,7 +31,7 @@ step 1: implement Key listner
 
 
  */
-public class BasicGameApp implements Runnable, KeyListener {
+public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
    //Variable Definition Section
    //Declare the variables used in the program 
@@ -50,6 +52,7 @@ public class BasicGameApp implements Runnable, KeyListener {
     public Image asteroid2Pic;
     public Image BackgroundPic;
 
+
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
 	public Astronaut astro;
@@ -59,6 +62,9 @@ public class BasicGameApp implements Runnable, KeyListener {
     public Astronaut astro2;
     public asteroid asteroid1;
     public asteroid2 asteroid2;
+    public Rectangle startHitbox;
+
+    public boolean startGame;
 
     // Main method definition
    // This is the code that runs first and automatically
@@ -121,7 +127,9 @@ public class BasicGameApp implements Runnable, KeyListener {
         asteroid2.dx = (int)(Math.random()*5)-3;
         asteroid2.dy = (int)(Math.random()*5)-3;
 
+        startHitbox = new Rectangle(100,100,100,100);
 
+        startGame = false;
 	}// BasicGameApp()
 
 
@@ -144,16 +152,17 @@ public class BasicGameApp implements Runnable, KeyListener {
 	}
 
 
-	public void moveThings()
-	{
-      //calls the move( ) code in the objects
-		astro.move();
-        astro2.move();
-        asteroid1.move();
-        asteroid2.move();
-        crashing();
-        crashing_asteroids();
-	}
+	public void moveThings() {
+        //calls the move( ) code in the objects
+        if (startGame == true) {
+            astro.move();
+            astro2.move();
+            asteroid1.move();
+            asteroid2.move();
+            crashing();
+            crashing_asteroids();
+        }
+    }
 
     public void crashing(){
 
@@ -217,6 +226,9 @@ public class BasicGameApp implements Runnable, KeyListener {
        //we're controlling w/ our keys
        //the canvas is our?
 
+       //step 2: add mouse motion listener
+       canvas.addMouseListener(this);
+
       canvas.setBounds(0, 0, WIDTH, HEIGHT);
       canvas.setIgnoreRepaint(true);
    
@@ -239,32 +251,44 @@ public class BasicGameApp implements Runnable, KeyListener {
 
 	//paints things on the screen using bufferStrategy
 	private void render() {
-		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
+        Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 
 
-		g.clearRect(0, 0, WIDTH, HEIGHT);
+        g.clearRect(0, 0, WIDTH, HEIGHT);
 
-        g.drawImage(BackgroundPic,0,0,WIDTH,HEIGHT,null);
+        if (startGame == true) {
 
-      //draw the image of the astronaut
-		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
+            g.drawImage(BackgroundPic, 0, 0, WIDTH, HEIGHT, null);
 
-        if(astro2.isAlive == true){
-            g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);
-            g.drawRect(astro2.hitbox.x, astro2.hitbox.y, astro2.hitbox.width, astro2.hitbox.height);
+            //draw the image of the astronaut
+            g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
+
+            if (astro2.isAlive == true) {
+                g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);
+                g.drawRect(astro2.hitbox.x, astro2.hitbox.y, astro2.hitbox.width, astro2.hitbox.height);
+            }
+
+
+            g.drawImage(asteroidPic, asteroid1.xpos, asteroid1.ypos, 45, 67, null);
+            g.drawImage(asteroid2Pic, asteroid2.xpos, asteroid2.ypos, 26, 78, null);
+
+            g.drawRect(astro.hitbox.x, astro.hitbox.y, astro.hitbox.width, astro.hitbox.height);
+
+            g.drawRect(asteroid1.hitbox.x, asteroid1.hitbox.y, 45, 67);
+            g.drawRect(asteroid2.hitbox.x, asteroid2.hitbox.y, 36, 88);
+
+            g.drawRect(startHitbox.x, startHitbox.y, startHitbox.width, startHitbox.height);
+
         }
 
-        g.drawImage(asteroidPic, asteroid1.xpos, asteroid1.ypos, 45, 67, null);
-        g.drawImage(asteroid2Pic, asteroid2.xpos, asteroid2.ypos, 26, 78, null);
+        g.setColor(Color.GREEN);
+        g.fillRect(100,100,100,100);
 
-		g.drawRect(astro.hitbox.x, astro.hitbox.y, astro.hitbox.width, astro.hitbox.height);
+            g.dispose();
 
-        g.drawRect(asteroid1.hitbox.x, asteroid1.hitbox.y, 45, 67);
-        g.drawRect(asteroid2.hitbox.x, asteroid2.hitbox.y, 36, 88);
-        g.dispose();
+            bufferStrategy.show();
 
-		bufferStrategy.show();
-	}
+    }
 
     /* 2.18.2026
     Step 3: add methods
@@ -276,43 +300,42 @@ public class BasicGameApp implements Runnable, KeyListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        System.out.println(e.getKeyChar());
-        //gets the letters that were pressed, not e.g. backspace or space
+    public void keyPressed(KeyEvent e){
+            System.out.println(e.getKeyChar());
+            //gets the letters that were pressed, not e.g. backspace or space
 
-        //a code for each key is different, unique so
-        if(e.getKeyCode() == 38){ //when up arrow is pressed
+            //a code for each key is different, unique so
+            if (e.getKeyCode() == 38) { //when up arrow is pressed
 
-            //astro.dy = astro.dy - 1;
+                //astro.dy = astro.dy - 1;
 
-            //the below code makes it always go up every time pressed up button
-             astro.isNorth = true;
-        }
+                //the below code makes it always go up every time pressed up button
+                astro.isNorth = true;
+            }
 
-        if(e.getKeyCode() == 40){
+            if (e.getKeyCode() == 40) {
 
-            //astro.dy = astro.dy - 1;
+                //astro.dy = astro.dy - 1;
 
-            //the below code makes it always go up every time pressed up button
-            astro.isSouth = true;
-        }
+                //the below code makes it always go up every time pressed up button
+                astro.isSouth = true;
+            }
 
-        if(e.getKeyCode() == 39){
+            if (e.getKeyCode() == 39) {
 
-            //astro.dy = astro.dy - 1;
+                //astro.dy = astro.dy - 1;
 
-            //the below code makes it always go up every time pressed up button
-            astro.isEast = true;
-        }
+                //the below code makes it always go up every time pressed up button
+                astro.isEast = true;
+            }
 
-        if(e.getKeyCode() == 37){
+            if (e.getKeyCode() == 37) {
 
-            //astro.dy = astro.dy - 1;
+                //astro.dy = astro.dy - 1;
 
-            //the below code makes it always go up every time pressed up button
-            astro.isWest = true;
-        }
-
+                //the below code makes it always go up every time pressed up button
+                astro.isWest = true;
+            }
 
 
 //        if(e.getKeyCode() == 39){ //when up arrow is pressed
@@ -351,4 +374,38 @@ public class BasicGameApp implements Runnable, KeyListener {
         }
 
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        System.out.println(e.getPoint());
+        Rectangle pointHitbox = new Rectangle(e.getX(),e.getY(),1,1);
+        if(startHitbox.intersects(pointHitbox)){
+            System.out.println("start game");
+            startGame = true;
+
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        System.out.println("mouse entered the screen");
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    //step 3: add methods
+
 }
