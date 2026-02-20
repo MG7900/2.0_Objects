@@ -23,8 +23,7 @@ public class Astronaut {
     public boolean isSouth;
     public boolean isWest;
     public boolean isEast;
-    public int previous_dx;
-    public int previous_dy;
+
 
 
     // METHOD DEFINITION SECTION
@@ -52,34 +51,21 @@ public class Astronaut {
     //The move method.  Everytime this is run (or "called") the hero's x position and y position change by dx and dy
     public void move() {
 
-        previous_dx = dx;
-        previous_dy = dy;
+//below setup dx and dy to 0 makes the astronauts movement to only br controlled by the arrow keys or else stationary
+//        dx = 0;
+//        dy = 0;
 
         if(isNorth == true){
             dy = -2;
-        }else{
-            dy = previous_dy;
         }
-
         if(isSouth == true){
             dy = 2;
-        }else{
-            dy = previous_dy;
         }
-
         if(isEast == true){
             dx = 2;
-        }else{
-
-            dx = previous_dx;
         }
-
         if(isWest == true){
             dx = -2;
-
-        }else{
-
-            dx = previous_dy;
         }
 
         if(xpos < 0 || xpos > 950){

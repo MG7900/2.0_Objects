@@ -105,11 +105,11 @@ public class BasicGameApp implements Runnable, KeyListener {
         asteroid2Pic = Toolkit.getDefaultToolkit().getImage("asteroid2.jpeg");
         BackgroundPic = Toolkit.getDefaultToolkit().getImage("download.jpg");
 
-		astro = new Astronaut(10,100);
+		astro = new Astronaut(100,100);
         astro.dy = (int)(Math.random()*5)-3;
         astro.dx = (int)(Math.random()*5)-3;
 
-        astro2 = new Astronaut(randx,randy);
+        astro2 = new Astronaut(600,600);
         astro2.dx = (int)(Math.random()*5)-3;
         astro2.dy = (int)(Math.random()*5)-3;
 
@@ -281,8 +281,6 @@ public class BasicGameApp implements Runnable, KeyListener {
         //gets the letters that were pressed, not e.g. backspace or space
 
         //a code for each key is different, unique so
-
-        System.out.println(e.getKeyCode());
         if(e.getKeyCode() == 38){ //when up arrow is pressed
 
             //astro.dy = astro.dy - 1;
@@ -291,7 +289,7 @@ public class BasicGameApp implements Runnable, KeyListener {
              astro.isNorth = true;
         }
 
-        if(e.getKeyCode() == 40){ //when up arrow is pressed
+        if(e.getKeyCode() == 40){
 
             //astro.dy = astro.dy - 1;
 
@@ -299,7 +297,7 @@ public class BasicGameApp implements Runnable, KeyListener {
             astro.isSouth = true;
         }
 
-        if(e.getKeyCode() == 39){ //when up arrow is pressed
+        if(e.getKeyCode() == 39){
 
             //astro.dy = astro.dy - 1;
 
@@ -307,7 +305,7 @@ public class BasicGameApp implements Runnable, KeyListener {
             astro.isEast = true;
         }
 
-        if(e.getKeyCode() == 37){ //when up arrow is pressed
+        if(e.getKeyCode() == 37){
 
             //astro.dy = astro.dy - 1;
 
@@ -336,18 +334,18 @@ public class BasicGameApp implements Runnable, KeyListener {
             astro.isNorth = false;
             System.out.println("not going up");
         }
-        if(e.getKeyCode() == 40 ){  //38 is up arrow
-            System.out.println("not going up");
+        if(e.getKeyCode() == 40 ){
+            System.out.println("not going down");
 
             astro.isSouth = false;
         }
-        if(e.getKeyCode() == 39 ){  //38 is up arrow
-            System.out.println("not going up");
+        if(e.getKeyCode() == 39 ){
+            System.out.println("not going east");
 
             astro.isEast = false;
         }
-        if(e.getKeyCode() == 37 ){  //38 is up arrow
-            System.out.println("not going up");
+        if(e.getKeyCode() == 37 ){
+            System.out.println("not going west");
 
             astro.isWest = false;
         }
