@@ -65,6 +65,10 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public Rectangle startHitbox;
 
     public boolean startGame;
+
+    //making a new array of asteroids
+    public asteroid[] asteroids;
+
     public boolean mouseheld;
     // Main method definition
    // This is the code that runs first and automatically
@@ -132,6 +136,13 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         startGame = false;
 
         mouseheld = false;
+
+
+        asteroids = new asteroid[5];
+        for(int i = 0; i < asteroids.length; i++){
+            asteroids[i] = new asteroid((int)(Math.random()*1000),(int)(Math.random()*700));
+        }
+
 	}// BasicGameApp()
 
 
@@ -163,12 +174,17 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             asteroid2.move();
             crashing();
             crashing_asteroids();
-
+            
             if(mouseheld == true) {
                 astro2.dy = astro2.dy + 2;
 //                astro2.dx = astro2.dx + 1;
 
             }
+        }
+
+        //todo: make the asteroids move
+        for(int h = 0; h < asteroids.length; h++){
+            asteroids[h].move();
         }
     }
 
@@ -288,6 +304,9 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
             g.drawRect(startHitbox.x, startHitbox.y, startHitbox.width, startHitbox.height);
 
+            for(int z = 0; z < asteroids.length; z++) {
+                g.drawImage(asteroidPic, asteroids[z].xpos, asteroids[z].ypos, 50, 50, null);
+            }
         }
 
         g.setColor(Color.GREEN);
