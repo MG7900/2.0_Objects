@@ -139,8 +139,13 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
 
         asteroids = new asteroid[5];
+
         for(int i = 0; i < asteroids.length; i++){
+            //dx and dy changes in here and not in "moveThings" because moveThings runs constantly
+            //so each asteroid would get assigned a new dx and dy every time it refreshes in moveThings
             asteroids[i] = new asteroid((int)(Math.random()*1000),(int)(Math.random()*700));
+            asteroids[i].dx = (int)(Math.random()*5)-5;
+            asteroids[i].dy = (int)(Math.random()*5)-5;
         }
 
 	}// BasicGameApp()
@@ -174,7 +179,10 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             asteroid2.move();
             crashing();
             crashing_asteroids();
-            
+            for(int h = 0; h < asteroids.length; h++){
+                asteroids[h].move();
+            }
+
             if(mouseheld == true) {
                 astro2.dy = astro2.dy + 2;
 //                astro2.dx = astro2.dx + 1;
@@ -183,9 +191,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         }
 
         //todo: make the asteroids move
-        for(int h = 0; h < asteroids.length; h++){
-            asteroids[h].move();
-        }
+
     }
 
     public void crashing(){
