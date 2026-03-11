@@ -144,6 +144,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             //dx and dy changes in here and not in "moveThings" because moveThings runs constantly
             //so each asteroid would get assigned a new dx and dy every time it refreshes in moveThings
             asteroids[i] = new asteroid((int)(Math.random()*1000),(int)(Math.random()*700));
+
             asteroids[i].dx = (int)(Math.random()*5)-5;
             asteroids[i].dy = (int)(Math.random()*5)-5;
         }
@@ -223,6 +224,15 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         if(asteroid1.hitbox.intersects(asteroid2.hitbox)){
             asteroid2.isCrashing = false;
         }
+
+        for(int x = 0; x < asteroids.length; x++){
+            if(asteroids[x].hitbox.intersects(astro.hitbox) || (asteroids[x].hitbox.intersects(astro2.hitbox)))
+            System.out.println("asteroids crashing w/ astronauts!");
+        }
+
+
+        //todo: print asteroid crash whenever one of the asteroids in the asteroid array hits either astro or astro2
+
     }
 	
    //Pauses or sleeps the computer for the amount specified in milliseconds
